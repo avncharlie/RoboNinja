@@ -1,16 +1,15 @@
 // todo:
 // top bar
-// put on git
-// fix bug of pulling resizer to very edge
 
-var codeWidthPercentage = 40;
+var leftPanelPercentage = 40;
 var columnWidthPx = 12;
-var minLeftSidePercentage = 20;
-var minRightSidePercentage = 20;
 
-var codeWindow = document.getElementById("codeWindow");
+var minLeftPanelPercentage = 20;
+var minRightPanelPercentage = 20;
+
+var leftPanel = document.getElementById("leftPanel");
+var rightPanel = document.getElementById("rightPanel");
 var resizer = document.getElementById("resizer");
-var display = document.getElementById("display");
 
 // dynamically setting window width
 document.addEventListener('DOMContentLoaded', function () {
@@ -22,9 +21,9 @@ function updateWidths() {
   "use strict";
   var currentWidth = window.innerWidth;
   
-  codeWindow.setAttribute("style", "width: calc(" + codeWidthPercentage + "% - " + columnWidthPx/2 + "px)");
+  leftPanel.setAttribute("style", "width: calc(" + leftPanelPercentage + "% - " + columnWidthPx/2 + "px)");
   resizer.setAttribute("style", "width: " + columnWidthPx + "px");
-  display.setAttribute("style", "width: calc(" + (100-codeWidthPercentage) + "% - " + columnWidthPx/2 + "px)");
+  rightPanel.setAttribute("style", "width: calc(" + (100-leftPanelPercentage) + "% - " + columnWidthPx/2 + "px)");
 }
 
 // resizer stuff
@@ -38,20 +37,20 @@ document.onmousemove = function(event) {
   cursor_x = event.pageX;
   cursor_y = event.pageY;
   
-  var currSize = (window.innerWidth - columnWidthPx) - display.offsetWidth;
+  var currSize = (window.innerWidth - columnWidthPx) - rightPanel.offsetWidth;
   
   if (resizing) {
-    if (currSize <= 0 || codeWidthPercentage < minLeftSidePercentage) {
-      codeWidthPercentage = minLeftSidePercentage;
-      currPercentage = codeWidthPercentage / 100;
+    if (currSize <= 0 || leftPanelPercentage < minLeftPanelPercentage) {
+      leftPanelPercentage = minLeftPanelPercentage;
+      currPercentage = leftPanelPercentage / 100;
       updateWidths();
-    } else if ((100-codeWidthPercentage) < minRightSidePercentage) {
-      codeWidthPercentage = 100-minRightSidePercentage;
-      currPercentage = codeWidthPercentage / 100;
+    } else if ((100-leftPanelPercentage) < minRightPanelPercentage) {
+      leftPanelPercentage = 100-minRightPanelPercentage;
+      currPercentage = leftPanelPercentage / 100;
       updateWidths();
     } else if (currSize > 0) {
-      codeWidthPercentage = currPercentage * 100;
-      if (codeWidthPercentage > minLeftSidePercentage && (100-codeWidthPercentage) > minRightSidePercentage) {
+      leftPanelPercentage = currPercentage * 100;
+      if (leftPanelPercentage > minLeftPanelPercentage && (100-leftPanelPercentage) > minRightPanelPercentage) {
         updateWidths();
       }
       currPercentage = cursor_x / window.innerWidth;

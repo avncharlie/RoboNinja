@@ -8,10 +8,18 @@ html, body {
   height: 100%;
 }
 
-#codeWindow {
+#leftPanel {
   height: 100%;
   width: calc(40% - 5px);
   background-color: red;
+  float: left;
+  display: inline;
+}
+
+#rightPanel {
+  height: 100%;
+  width: calc(60% - 5px);
+  background-color: green;
   float: left;
   display: inline;
 }
@@ -44,12 +52,4 @@ html, body {
   margin: 4px auto;
   background-color: dimgray;
   border-radius: 5px;
-}
-
-#display {
-  height: 100%;
-  width: calc(60% - 5px);
-  background-color: green;
-  float: left;
-  display: inline;
 }
